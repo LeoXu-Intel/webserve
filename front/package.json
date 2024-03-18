@@ -1,0 +1,36 @@
+{
+  "name": "BKC-AI-Web",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve",
+    "dev":"vue-cli-service build --mode development",
+    "build": "vue-cli-service build --mode production",
+    "test": "vue-cli-service build --mode test", 
+    "all": "vue-cli-service build --mode development && vue-cli-service build --mode test && vue-cli-service build --mode production",
+    "lint":"vue-cli-service lint"
+  },
+  "dependencies": {
+    "axios": "^1.6.3",
+    "core-js": "^3.8.3",
+    "element-plus": "^2.3.6",
+    "vue": "^3.2.13",
+    "vue-loader": "^17.4.2",
+    "vue-router": "^4.2.5",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~5.0.0",
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-typescript": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "typescript": "~4.5.5"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead",
+    "not ie 11"
+  ]
+}
