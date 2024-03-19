@@ -1,101 +1,68 @@
 <template>
-    <el-row>
-      <el-col :span="16">
-        <el-space direction="vertical" justify="center" >
-          <el-space :size="40">
-            <el-card class="box-card" style="width: 18vw; height: 7vw;">
-               <el-row justify="center">
-                 <el-col :span="24">
-                   <el-text tag="b" >Number 1</el-text>
-                   <el-input
-                     v-model="number1"
-                     placeholder="Enter first number"
-                       />
-                </el-col>
-               </el-row>
-            </el-card>
-
-            <el-card class="box-card" style="width: 18vw; height: 7vw;">
-               <el-row justify="center">
-                 <el-col :span="24">
-                   <el-text tag="b" >Number 2</el-text>
-                   <el-input
-                     v-model="number2"
-                     placeholder="Enter second number"
-                       />
-                </el-col>
-               </el-row>
-            </el-card>
-
-            <el-button type="primary" @click="calculateSum">Calculate</el-button>
-
-            <el-card class="box-card" style="width: 18vw; height: 7vw;">
-               <el-row justify="center">
-                 <el-col :span="24">
-                   <el-text tag="b" >Result</el-text>
-                   <el-input
-                     v-model="result"
-                     placeholder="Result will be displayed here"
-                     disabled
-                       />
-                </el-col>
-               </el-row>
-            </el-card>
-          </el-space>
-        </el-space>
-      </el-col>
-    </el-row>   
+  <el-row style="margin-top: 20px;">
+    <el-col :span="12" :offset="1">
+      <el-card class="box-card">
+        <div slot="header" class="clearfix">
+          <span>Jenkins API Trigger</span>
+        </div>
+        <el-row type="flex" justify="center" style="margin-top: 30px;">
+          <el-button type="primary" @click="triggerJenkins">Trigger Jenkins Build</el-button>
+        </el-row>
+      </el-card>
+    </el-col>
+  </el-row>
 </template>
 
-<script >
-import { ref,defineComponent } from 'vue';
+
+
+<script>
+import { defineComponent } from 'vue';
 import axios from 'axios';
+import { ElMessage } from 'element-plus'; // 确保你已经正确导入了 ElMessage
 
 export default defineComponent({
-  name: 'Addition',
-  data(){
-    return{
-      number1: '',
-      number2: '',
-      result: '',
-    }
-  },
-  methods:{
-    calculateSum(){
-      axios.get("/api/test",{
-        params:{
-          number1: this.number1,
-          number2: this.number2
+  methods: {
+    triggerJenkins() {
+      axios.get("/test", {
+        params: {
+          // 你的参数（如果有的话）
         }
-      }).then((response)=>{
+      }).then((response) => {
         this.result = response.data.result;
-      })
+        if (this.result && this.result.result === 'SUCCESS') {
+          // 如果构建成功，显示成功消息
+          ElMessage({
+            message: 'Jenkins build run successfully!',
+            type: 'success',
+          });
+        } else {
+          // 如果构建不成功，显示错误消息
+          ElMessage({
+            message: 'Jenkins build did not run successfully.',
+            type: 'error',
+          });
+        }
+      }).catch((error) => {
+        // 如果请求失败，显示错误消息
+        ElMessage({
+          message: `Error: ${error.message}`,
+          type: 'error',
+        });
+      });
     },
   },
 });
 </script>
 
+
+
 <style scoped>
-.result  {
-  margin-top: 5vh;
+.box-card {
+  transition: 0.3s;
+  cursor: pointer;
+  text-align: center;
 }
-
-.bottom-left-container {
-  position: fixed;
-  bottom: 5%;
-  left: 51%;
-  margin: 16px; /* 可根据需要调整边距 */
-}
-
-.centered-card {
-  text-align: center; /* 设置卡片中的文本居中 */
-}
-
-.centered-content {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100%; /* 让内容占据整个卡片高度 */
+.box-card:hover {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
 }
 </style>

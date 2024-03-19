@@ -20,7 +20,7 @@
               <span>Test2</span>
             </template>
             <el-menu-item index="2-1">
-              <router-link to="/LabTools/Sensor/Search">Calculater</router-link>
+              <router-link to="/LabTools/Sensor/Search">Jenkins API</router-link>
             </el-menu-item>
             <el-menu-item index="2-2">
               <router-link to="/LabTools/Sensor/login">Test2-2</router-link>
