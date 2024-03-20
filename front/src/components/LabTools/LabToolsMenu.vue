@@ -20,10 +20,10 @@
               <span>Test2</span>
             </template>
             <el-menu-item index="2-1">
-              <router-link to="/LabTools/Sensor/Search">Jenkins API-1</router-link>
+              <router-link to="/LabTools/Sensor/JenkinsAPI_N">Jenkins API-1</router-link>
             </el-menu-item>
             <el-menu-item index="2-2">
-              <router-link to="/LabTools/Sensor/login">Jenkins API-2</router-link>
+              <router-link to="/LabTools/Sensor/JenkinsAPI_P">Jenkins API-2</router-link>
             </el-menu-item>
             <el-menu-item index="2-3">
               <router-link to="/LabTools/Sensor/Compare">Test2-3</router-link>

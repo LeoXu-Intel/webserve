@@ -5,7 +5,8 @@ import LoadingView from "../components/Loading.vue";
 
 // import CompareView from '../views/CompareView.vue'
 import CompareMain from "../components/LabTools/Sensor/CompareMain.vue";
-import SearchMain from "../components/LabTools/Sensor/SearchMain.vue";
+import JenkinsAPI_N from "../components/LabTools/Sensor/JenkinsAPI-N.vue";
+import JenkinsAPI_P from "../components/LabTools/Sensor/JenkinsAPI-P.vue";
 //import SearchMainUpdate from "../components/LabTools/Sensor/SearchMainUpdate.vue";
 //import SensorLogin from "@/components/LabTools/Sensor/Login.vue";
 
@@ -62,21 +63,21 @@ const routes = [
         path: "Slice",
         components: {
           menu: LabToolsMenu,
-          main: SearchMain,
+          main: JenkinsAPI_N,
         },
       },
       {
-        path: "Sensor/Search",
+        path: "Sensor/JenkinsAPI_N",
         components: {
           menu: LabToolsMenu,
-          main: SearchMain,
+          main: JenkinsAPI_N,
         },
       },
       {
-        path: "Sensor/UpdateSearch",
+        path: "Sensor/JenkinsAPI_P",
         components: {
           menu: LabToolsMenu,
-          //main: SearchMainUpdate,
+          main: JenkinsAPI_P,
         },
       },
       {
