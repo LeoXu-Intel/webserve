@@ -1,4 +1,4 @@
-<template>
+<template>_
   <el-row style="margin-top: 20px;">
     <el-col :span="24">
       <el-card class="box-card">
@@ -10,31 +10,31 @@
             <!-- sut1_conf 参数 -->
             <el-col :span="12">
               <el-form-item label="SUT1 Host">
-                <el-input v-model="parameters.sut1_conf.host"></el-input>
+                <el-input v-model="parameters.sut1_conf_host"></el-input>
               </el-form-item>
               <el-form-item label="board_platform">
-                <el-input v-model="parameters.sut1_conf.board_platform"></el-input>
+                <el-input v-model="parameters.sut1_conf_board_platform"></el-input>
               </el-form-item>
               <el-form-item label="cpu_type">
-                <el-input v-model="parameters.sut1_conf.cpu_type"></el-input>
+                <el-input v-model="parameters.sut1_conf_cpu_type"></el-input>
               </el-form-item>
               <el-form-item label="cpu_corecount">
-                <el-input v-model="parameters.sut1_conf.cpu_corecount"></el-input>
+                <el-input v-model="parameters.sut1_conf_cpu_corecount"></el-input>
               </el-form-item>
               <el-form-item label="kernel_type">
-                <el-input v-model="parameters.sut1_conf.kernel_type"></el-input>
+                <el-input v-model="parameters.sut1_conf_kernel_type"></el-input>
               </el-form-item>
               <el-form-item label="pf1">
-                <el-input v-model="parameters.sut1_conf.pf1"></el-input>
+                <el-input v-model="parameters.sut1_conf_pf1"></el-input>
               </el-form-item>
               <el-form-item label="pf2">
-                <el-input v-model="parameters.sut1_conf.pf2"></el-input>
+                <el-input v-model="parameters.sut1_conf_pf2"></el-input>
               </el-form-item>
               <el-form-item label="pf3">
-                <el-input v-model="parameters.sut1_conf.pf3"></el-input>
+                <el-input v-model="parameters.sut1_conf_pf3"></el-input>
               </el-form-item>
               <el-form-item label="pf4">
-                <el-input v-model="parameters.sut1_conf.pf4"></el-input>
+                <el-input v-model="parameters.sut1_conf_pf4"></el-input>
               </el-form-item>
               <!-- 添加其他 sut1_conf 参数的表单项 -->
               <!-- ... -->
@@ -42,19 +42,19 @@
             <el-col :span="12">
               <!-- sut2_conf 参数 -->
               <el-form-item label="SUT2 Host">
-                <el-input v-model="parameters.sut2_conf.host"></el-input>
+                <el-input v-model="parameters.sut2_conf_host"></el-input>
               </el-form-item>
               <el-form-item label="pf1">
-                <el-input v-model="parameters.sut2_conf.pf1"></el-input>
+                <el-input v-model="parameters.sut2_conf_pf1"></el-input>
               </el-form-item>
               <el-form-item label="pf2">
-                <el-input v-model="parameters.sut2_conf.pf2"></el-input>
+                <el-input v-model="parameters.sut2_conf_pf2"></el-input>
               </el-form-item>
               <el-form-item label="pf3">
-                <el-input v-model="parameters.sut2_conf.pf3"></el-input>
+                <el-input v-model="parameters.sut2_conf_pf3"></el-input>
               </el-form-item>
               <el-form-item label="pf4">
-                <el-input v-model="parameters.sut2_conf.pf4"></el-input>
+                <el-input v-model="parameters.sut2_conf_pf4"></el-input>
               </el-form-item>
               <!-- 添加其他 sut2_conf 参数的表单项 -->
               <!-- ... -->
@@ -83,26 +83,30 @@ import { ElMessage } from 'element-plus';
 export default defineComponent({
   setup() {
     const parameters = reactive({
-      sut1_conf: {
-        host: "10.239.183.93",
-        board_platform: "Archer_City",
-        cpu_type: "SPR-SP",
-        cpu_corecount: "XCC",
-        kernel_type: "RT",
-        pf1: "ens787f2",
-        pf2: "-1",
-        pf3: "-1",
-        pf4: "-1"
-      },
-      sut2_conf: {
-        host: "10.239.182.253",
-        pf1: "ens788f2",
-        pf2: "-1",
-        pf3: "-1",
-        pf4: "-1"
-      },
+        sut1_conf_host: "10.239.183.93",
+        sut1_conf_board_platform: "Archer_City",
+        sut1_conf_cpu_type: "SPR-SP",
+        sut1_conf_cpu_corecount: "XCC",
+        sut1_conf_kernel_type: "RT",
+        sut1_conf_pf1: "ens787f2",
+        sut1_conf_pf2: "-1",
+        sut1_conf_pf3: "-1",
+        sut1_conf_pf4: "-1",
+       
+        sut2_conf_host: "10.239.182.253",
+        sut2_conf_pf1: "ens788f2",
+        sut2_conf_pf2: "-1",
+        sut2_conf_pf3: "-1",
+        sut2_conf_pf4: "-1",
       // 初始化其他配置对象...
     });
+
+const jenkinsParameters = {
+  parameter: Object.keys(parameters).map(key => ({
+    name: key,
+    value: parameters[key],
+  })),
+};
 
     const triggerJenkins = () => {
       axios.post("/test_P", parameters)

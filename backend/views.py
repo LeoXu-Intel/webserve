@@ -35,13 +35,17 @@ def test_view_P(request):
         server = jenkins.Jenkins(jenkins_server_url, username=username, password=password)
 
         # 从POST请求体中解析JSON数据
-        parameters = json.loads(request.body)
+        parameters = json.loads(request.body.decode('utf-8'))  # 确保解码请求体
 
-        job_name="Leo_Test_01/Leo_Test_01-setup-test-env"
+        # 这里您需要根据Jenkins的API要求来处理parameters
+        # 如果Jenkins需要特定格式，您需要转换parameters到那个格式
 
+        job_name = "APITest_P"
 
         # 使用参数触发Jenkins作业
         server.build_job(job_name, parameters)
+
+        print("---------Run----------结束-----")
 
         # 获取最后一次构建的编号
         last_build_number = server.get_job_info(job_name)['lastCompletedBuild']['number']
@@ -51,4 +55,3 @@ def test_view_P(request):
     except Exception as e:
         # 处理异常，例如连接错误、认证错误等
         return JsonResponse({'error': str(e)}, status=500)
-
