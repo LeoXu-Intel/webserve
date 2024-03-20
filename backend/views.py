@@ -21,7 +21,8 @@ def test_view(request):
     except Exception as e:
         # Handle exceptions such as connection errors, authentication errors, etc.
         return JsonResponse({'error': str(e)}, status=500)
-    
+
+@csrf_exempt  # 这个装饰器免除了视图的CSRF验证。请谨慎使用。
 @require_http_methods(["POST"])  # 这个视图只接受POST请求。
 def test_view_P(request):
     try:
