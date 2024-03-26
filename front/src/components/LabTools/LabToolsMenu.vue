@@ -26,7 +26,7 @@
               <router-link to="/LabTools/Sensor/JenkinsAPI_P">Jenkins API-2</router-link>
             </el-menu-item>
             <el-menu-item index="2-3">
-              <router-link to="/LabTools/Sensor/Compare">Test2-3</router-link>
+              <router-link to="/LabTools/Sensor/HSD_API">HSD API</router-link>
             </el-menu-item>
           </el-sub-menu>
           <el-sub-menu index="3">

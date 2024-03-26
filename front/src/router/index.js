@@ -4,7 +4,7 @@ import Container from "../components/Container.vue";
 import LoadingView from "../components/Loading.vue";
 
 // import CompareView from '../views/CompareView.vue'
-import CompareMain from "../components/LabTools/Sensor/CompareMain.vue";
+import HSD_API from "../components/LabTools/Sensor/HSD_API.vue";
 import JenkinsAPI_N from "../components/LabTools/Sensor/JenkinsAPI-N.vue";
 import JenkinsAPI_P from "../components/LabTools/Sensor/JenkinsAPI-P.vue";
 //import SearchMainUpdate from "../components/LabTools/Sensor/SearchMainUpdate.vue";
@@ -88,10 +88,10 @@ const routes = [
         },
       },
       {
-        path: "Sensor/Compare",
+        path: "Sensor/HSD_API",
         components: {
           menu: LabToolsMenu,
-          main: CompareMain,
+          main: HSD_API,
         },
       },
       {
