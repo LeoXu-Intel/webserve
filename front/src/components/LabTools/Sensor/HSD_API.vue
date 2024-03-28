@@ -86,7 +86,7 @@ export default defineComponent({
         return;
       }
       try {
-        const response = await axios.get(`/api/searchById/${encodeURIComponent(searchId.value)}`);
+        const response = await axios.get(`/searchById?article_id=${encodeURIComponent(searchId.value)}`);
         idSearchResult.value = response.data; // 假设后端返回的数据在 response.data 中
       } catch (error) {
         console.error('ID 查询错误:', error);
