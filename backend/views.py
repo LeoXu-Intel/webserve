@@ -23,6 +23,7 @@ def test_view(request):
         return JsonResponse({'error': str(e)}, status=500)
 
 @csrf_exempt  # 这个装饰器免除了视图的CSRF验证。请谨慎使用。
+
 @require_http_methods(["POST"])  # 这个视图只接受POST请求。
 def test_view_P(request):
     try:
@@ -55,3 +56,43 @@ def test_view_P(request):
     except Exception as e:
         # 处理异常，例如连接错误、认证错误等
         return JsonResponse({'error': str(e)}, status=500)
+
+
+
+import requests
+import base64
+from requests_kerberos import HTTPKerberosAuth
+import certifi
+
+@require_http_methods(["GET"])
+def searchById(request):
+    # 从查询字符串中获取 article_id 参数
+    article_id = request.GET.get('article_id', None)
+    if not article_id:
+        return JsonResponse({'error': 'No article_id provided'}, status=400)
+    response= None
+    try:
+        verify_path=certifi.where()
+       # user = "axu"
+       # pwd = "7bbde69b-91a5-4daf-9f4c-bfa05af3d9d9"
+       # tok = user + ':' + pwd
+       # encoded_tok = base64.b64encode(tok.encode()).decode()
+
+       # headers = {
+       #     'Content-type': 'application/json',
+       #     'Authorization': 'Basic %s' % encoded_tok
+       # }
+      #  proxies = {
+      # 'http': 'http://child-prc.intel.com:913',
+      # 'https': 'http://child-prc.intel.com:913'
+      #  }
+        url = f'https://hsdes-api.intel.com/rest/article/{article_id}'
+        response = requests.get(url, auth=HTTPKerberosAuth(),verify=certifi.where())
+        response.raise_for_status()  # Raise an HTTPError if the HTTP request returned an unsuccessful status code
+        return JsonResponse(response.json())
+    except requests.exceptions.RequestException as e:
+        return JsonResponse({'error': str(e)}, status=response.status_code if response else 500)
+
+
+
+
