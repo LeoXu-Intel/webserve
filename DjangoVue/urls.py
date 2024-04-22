@@ -1,8 +1,7 @@
-from  django.views.generic.base import TemplateView
+from django.views.generic import TemplateView
 from django.urls import path
 from django.urls import include
 from backend import views
-
 
 urlpatterns = [
     # path('admin/', admin.site.urls),
@@ -10,5 +9,5 @@ urlpatterns = [
     path('',include('backend.urls')),
     path('test', views.test_view),
     path('test_P', views.test_view_P),
-    
+    path('searchById',views.searchById),
 ]
