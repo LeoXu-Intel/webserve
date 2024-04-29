@@ -32,7 +32,7 @@ declare const _default: import("vue").DefineComponent<{
         block: string;
     }, boolean>;
     type: {
-        readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary") | ((new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary"))[], unknown, unknown>>;
+        readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary") | ((new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary"))[], unknown, unknown>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
         __epPropKey: true;
@@ -74,7 +74,7 @@ declare const _default: import("vue").DefineComponent<{
             block: string;
         }, boolean>;
         type: {
-            readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary") | ((new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary"))[], unknown, unknown>>;
+            readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary") | ((new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary"))[], unknown, unknown>>;
             readonly required: false;
             readonly validator: ((val: unknown) => boolean) | undefined;
             __epPropKey: true;
@@ -123,7 +123,7 @@ declare const _default: import("vue").DefineComponent<{
     } | undefined>;
     mergedShowArrow: import("vue").ComputedRef<import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>>;
     mergedScrollIntoViewOptions: import("vue").ComputedRef<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (boolean | ScrollIntoViewOptions) & {}) | (() => boolean | ScrollIntoViewOptions) | ((new (...args: any[]) => (boolean | ScrollIntoViewOptions) & {}) | (() => boolean | ScrollIntoViewOptions))[], unknown, unknown>>;
-    mergedType: import("vue").ComputedRef<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary") | ((new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary"))[], unknown, unknown> | undefined>;
+    mergedType: import("vue").ComputedRef<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary") | ((new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary"))[], unknown, unknown> | undefined>;
     nextZIndex: () => number;
     nowZIndex: number;
     mergedZIndex: import("vue").ComputedRef<number>;
@@ -363,7 +363,7 @@ declare const _default: import("vue").DefineComponent<{
         block: string;
     }, boolean>;
     type: {
-        readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary") | ((new (...args: any[]) => ("defalut" | "primary") & {}) | (() => "defalut" | "primary"))[], unknown, unknown>>;
+        readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary") | ((new (...args: any[]) => ("default" | "primary") & {}) | (() => "default" | "primary"))[], unknown, unknown>>;
         readonly required: false;
         readonly validator: ((val: unknown) => boolean) | undefined;
         __epPropKey: true;

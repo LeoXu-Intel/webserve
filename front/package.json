@@ -4,20 +4,21 @@
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
-    "dev":"vue-cli-service build --mode development",
+    "dev": "vue-cli-service build --mode development",
     "build": "vue-cli-service build --mode production",
-    "test": "vue-cli-service build --mode test", 
+    "test": "vue-cli-service build --mode test",
     "all": "vue-cli-service build --mode development && vue-cli-service build --mode test && vue-cli-service build --mode production",
-    "lint":"vue-cli-service lint"
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
     "axios": "^1.6.3",
     "core-js": "^3.8.3",
-    "element-plus": "^2.3.6",
+    "element-plus": "^2.7.1",
     "vue": "^3.2.13",
     "vue-loader": "^17.4.2",
+    "vue-multiselect": "^3.0.0",
     "vue-router": "^4.2.5",
-    "vuex": "^4.0.0"
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~5.0.0",

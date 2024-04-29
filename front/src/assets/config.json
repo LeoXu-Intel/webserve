@@ -1,0 +1,88 @@
+[
+    {
+      "label": "Basic",
+      "formItems": [
+        {
+          "label": "SUT1_IP",
+          "model": "SUT1_IP",
+          "type": "text"
+        },
+        {
+          "label": "Board_Platform",
+          "model": "Board_Platform",
+          "type": "text"
+        },
+        {
+          "label": "CPU_Type",
+          "model": "CPU_Type",
+          "type": "text"
+        },
+        {
+          "label": "CPU_Corecount",
+          "model": "CPU_Corecount",
+          "type": "text"
+        },{
+          "label": "Kernel_Type",
+          "model": "Kernel_Type",
+          "type": "text"
+        },{
+          "label": "Sut1_Pf1",
+          "model": "Sut1_Pf1",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "label": "QAT",
+      "formItems": [
+        {
+          "label": "QAT_1",
+          "model": "QAT_1",
+          "type": "text"
+        },
+        {
+          "label": "QAT_2",
+          "model": "QAT_2",
+          "type": "text"
+        },{
+          "label": "QAT_3",
+          "model": "QAT_3",
+          "type": "text"
+        },{
+          "label": "QAT_4",
+          "model": "QAT_4",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "label": "DLB",
+      "formItems": [
+        {
+          "label": "DLB_1",
+          "model": "DLB_1",
+          "type": "text"
+        },
+        {
+          "label": "DLB_2",
+          "model": "DLB_2",
+          "type": "text"
+        },{
+          "label": "DLB_3",
+          "model": "DLB_3",
+          "type": "text"
+        }
+      ]
+    },
+    {
+      "label": "DPDK",
+      "formItems": [
+        {
+          "label": "DPDK_1",
+          "model": "DPDK_1",
+          "type": "text"
+        }
+      ]
+    }
+  ]
+  

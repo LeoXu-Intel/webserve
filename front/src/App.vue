@@ -1,65 +1,46 @@
 <template>
   <el-container class="home-container">
-    <el-header>
+    <!-- 只有在非登录页面时显示 Header -->
+    <el-header v-if="shouldShowHeader">
       <Header/>
     </el-header>
-    <el-container style="height: 100%"> 
-      <!-- <el-aside width="250px">
-        <router-view name="menu"></router-view>
-      </el-aside>
-      <el-main>
-        <router-view name="main"></router-view>
-      </el-main> -->
+    <el-container> 
       <router-view></router-view>
     </el-container>
   </el-container>
 </template>
 
 <script lang="ts" setup>
+import Header from './components/Header.vue'
+import { ref, computed } from 'vue'
+import { useRoute } from 'vue-router'
 
-import Header from '@/components/Header.vue'
-import { ref } from 'vue'
-
+const route = useRoute()
+const shouldShowHeader = computed(() => route.path !== '/login')
 
 const activeName = ref('first')
 
-// export default {
-//   name: 'App',
-//   components:{
-//     Menu,
-//     Header
-//   }
-// }
-
 const options = {
-    name: 'App',
-    components:{
-      Header
-    }
+  name: 'App',
+  components: {
+    Header
+  }
 }
-
 </script>
 
 <style>
-/* html,body,#app{ height:100%; margin: 0px; padding: 0px; } */
-
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  /* text-align: center;
-  color: #2c3e50; */
-  height: 100%; 
-}
-
-.home-container{
-    height: 100%;
-}
-
-
- html,body {
+html, body, #app {
   height: 100%;
-  margin: 0px;
+  margin: 0;
+  padding: 0;
 }
 
+.home-container, .content-container {
+  height: 100%;
+}
+
+/* 如果你的Header组件有固定高度，你可能需要为content-container设置一个top margin */
+.content-container {
+  margin-top: 60px; /* 假设Header高度为60px */
+}
 </style>
