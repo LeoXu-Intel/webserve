@@ -6,7 +6,7 @@ module.exports = {
         },
       },
     },
-    publicPath: process.env.NODE_ENV === 'production' ? '/api' : '/',
+    publicPath: '/', // 设置静态资源的基础路径为根目录
     lintOnSave: false, // 关闭eslint校验
     outputDir: process.env.outputDir || 'dist', // 打包生成目录，默认为 'dist'
   };

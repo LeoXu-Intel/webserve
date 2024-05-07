@@ -10,48 +10,33 @@
   <div class="search-form">
     <div class="row">
 
-      <div class="input-group">
-        <label for="select1">Platform:</label>
-        <select id="select1" v-model="selection1">
-          <option value="option1">SP1</option>
-          <option value="option2">SP2</option>
-          <!-- 更多选项 -->
-        </select>
-      </div>
-
-      <div class="input-group">
-        <label for="select2">Test_Cycle_Name:</label>
-        <select id="select2" v-model="selection2">
-          <option value="option1">Test_Cycle_1</option>
-          <option value="option2">Test_Cycle_2</option>
-          <!-- 更多选项 -->
-        </select>
-      </div>
-
-    </div>
-
-    <div class="row">
-
-      <div class="input-group">
-        <label for="select3">Cycle_Config:</label>
-        <select id="select3" v-model="selection3">
-          <option value="option1">Cycle_Config_1</option>
-          <option value="option2">Cycle_Config_2</option>
-          <!-- 更多选项 -->
-        </select>
-      </div>
-
         <div class="input-group">
-        <label for="select4">Test_Domain:</label>
-          <el-select v-model="value1" multiple placeholder="请选择">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value">
-            </el-option>
-          </el-select>
+        <label for="selection1">Platform:</label>
+        <input id="selection1" :value="selection1" readonly>
       </div>
+
+      <div class="input-group">
+        <label for="selection2">Test_Cycle_Name:</label>
+        <input id="selection2" :value="selection2" readonly>
+      </div>
+
+      <div class="input-group">
+        <label for="selection3">Cycle_Config:</label>
+        <input id="selection3" :value="selection3" readonly>
+      </div>
+
+      <div class="input-group">
+        <label for="selection4">Test_Domain:</label>
+        <el-select v-model="selection4" multiple placeholder="请选择" disabled>
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value">
+          </el-option>
+        </el-select>
+      </div>
+
     </div>
   </div>
 
@@ -93,39 +78,35 @@
 </template>
 
 <script>
-import Multiselect from 'vue-multiselect';
-
+import { computed } from 'vue';
+import { useStore } from 'vuex';
 export default {
-  components: { Multiselect },
-  created() {
-    this.loadSelections();
+  setup() {
+    const store = useStore();
+
+    // 使用 computed 来创建只读的计算属性，它们将从 Vuex store 中获取状态
+    const selection1 = computed(() => store.state.selections.selection1);
+    const selection2 = computed(() => store.state.selections.selection2);
+    const selection3 = computed(() => store.state.selections.selection3);
+    const selection4 = computed(() => store.state.selections.selection4);
+
+    // 假设你有一个 action 来加载数据
+    store.dispatch('loadSelections');
+
+    // 返回响应式引用和函数...
+    return {
+      selection1,
+      selection2,
+      selection3,
+      selection4,
+      // ...其他返回值
+    };
   },
   data() {
     return {
-      selection1: '',
-      selection2: '',
-      selection3: '',
-      selection4: [],
-      options: [{
-          value: 'QAT',
-          label: 'QAT'
-        }, {
-          value: 'DLB',
-          label: 'DLB'
-        }, {
-          value: 'DSA',
-          label: 'DSA'
-        }, {
-          value: 'Networking',
-          label: 'Networking'
-        }, {
-          value: 'SRIOV',
-          label: 'SRIOV'
-        }],
-        value1: [],
-        value2: [],
-       checkedGroup1: [],
-      checkedGroup2: [],
+
+      
+      
       options1: [
         { label: 'Suit_Marker_Mapping_1', value: 'Suit_Marker_Mapping_1' },
         { label: 'Suit_Marker_Mapping_2', value: 'Suit_Marker_Mapping_2' },
@@ -156,20 +137,17 @@ export default {
         
         // ...更多选项
       ],
+      checkedGroup1: [], // 初始化为空数组
+      checkedGroup2: [], // 初始化为空数组
 
     };
   },
+  created() {
+    // 在组件创建后设置默认选中的值
+    this.checkedGroup1 = this.options1.map(item => item.value);
+    this.checkedGroup2 = this.options2.map(item => item.value);
+  },
   methods: {
-    loadSelections() {
-      // 假设你有一个 action 来加载数据
-      this.$store.dispatch('loadSelections').then(() => {
-        const selections = this.$store.state.selections;
-        this.selection1 = selections.selection1 || '';
-        this.selection2 = selections.selection2 || '';
-        this.selection3 = selections.selection3 || '';
-        this.selection4 = selections.selection4 || [];
-      });
-    },
     search() {
       // 在这里执行搜索逻辑
       console.log('执行搜索', this.selection1, this.selection2, this.selection3, this.selection4);
@@ -284,12 +262,12 @@ export default {
   justify-content: space-between;
   margin-bottom: 5px;
 }
-
 .input-group {
   display: flex;
   flex-direction: column;
   margin: 0 20px;
   width: calc(50% - 20px); /* 减去间距的一半 */
+  
 }
 
 .input-group label {
@@ -298,15 +276,17 @@ export default {
 
 }
 
-.input-group select{
+.input-group input{
   padding: 0px;
   border: 2px solid #e6e6e6;
   border-radius: 4px;
   width: 100%; /* 选择框宽度调整为100% */
   font: 1em sans-serif;
   height: 33px;
+  background: #c9c8c8;
   
 }
+
 .button-row {
   display: flex;
   justify-content: flex-end;
