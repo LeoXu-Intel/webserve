@@ -1,7 +1,9 @@
 from django.urls import path
 from . import views
 urlpatterns = [
-    path('test', views.test_view),
-    path('test_P', views.test_view_P),
-    path('searchById',views.searchById),
+    path('SearchPlatform', views.SearchPlatform),
+    path('SearchTestCycle', views.SearchTestCycle),
+    path('SearchCycleConfig', views.SearchCycleConfig),
+    path('SearchTestCase', views.SearchTestCase),
+    path('api/login/', views.login_view),
 ]

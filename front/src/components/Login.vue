@@ -44,18 +44,26 @@ export default {
 },
 
   methods: {
-  handleLogin() {
-    // ...登录逻辑
-    if (this.loginForm.username === 'admin' && this.loginForm.password === 'intel') {
-      // 设置登录状态 
-      localStorage.setItem('isUserLoggedIn', 'true');
-      // 导航到 /LabTools
-      this.$router.push('/LabTools');
-    } else {
-      // 登录失败，显示错误消息
-      alert('Incorrect username or password.');
-    }
-  },
+    async handleLogin() {
+      try {
+        // 发送登录请求到Django后端
+        const response = await this.$axios.post('/api/login/', {
+          username: this.loginForm.username,
+          password: this.loginForm.password
+        });
+        // 登录成功，设置登录状态并导航到 /LabTools
+        if (response.data.success) {
+          localStorage.setItem('isUserLoggedIn', 'true');
+          this.$router.push('/LabTools');
+        } else {
+          // 登录失败，显示错误消息
+          alert('Incorrect username or password.');
+        }
+      } catch (error) {
+        // 处理错误情况
+        alert('Login failed. Please try again.');
+      }
+    },
 },
 
 };

@@ -1,34 +1,341 @@
 [
     {
-      "label": "Basic",
+      "label": "SUT1",
       "formItems": [
         {
-          "label": "SUT1_IP",
-          "model": "SUT1_IP",
-          "type": "text"
+          "label": "host",
+          "model": "host",
+          "type": "text",
+          "defaultValue": "10.239.182.61"
         },
         {
-          "label": "Board_Platform",
-          "model": "Board_Platform",
-          "type": "text"
+          "label": "reboot",
+          "model": "reboot",
+          "type": "select",
+          "defaultValue": "No",
+          "options": [
+            { "label": "No", "value": "No" },
+            { "label": "Yes", "value": "Yes" }
+          ]
         },
         {
-          "label": "CPU_Type",
-          "model": "CPU_Type",
-          "type": "text"
+          "label": "board_platform",
+          "model": "board_platform",
+          "type": "select",
+          "defaultValue": "Archer_City",
+          "options": [
+            { "label": "Archer_City", "value": "Archer_City" },
+            { "label": "Beechnut_City", "value": "Beechnut_City" },
+            { "label": "Avenue_City", "value": "Avenue_City" },
+            { "label": "Kaseyville_RP", "value": "Kaseyville_RP" },
+            { "label": "S6Q", "value": "S6Q" },
+            { "label": "Hook", "value": "Hook" },
+            { "label": "Patras", "value": "Patras" },
+            { "label": "R660", "value": "R660" },
+            { "label": "R760", "value": "R760" },
+            { "label": "DL110", "value": "DL110" }
+          ]
         },
         {
-          "label": "CPU_Corecount",
-          "model": "CPU_Corecount",
-          "type": "text"
-        },{
-          "label": "Kernel_Type",
-          "model": "Kernel_Type",
-          "type": "text"
-        },{
-          "label": "Sut1_Pf1",
-          "model": "Sut1_Pf1",
-          "type": "text"
+          "label": "cpu_type",
+          "model": "cpu_type",
+          "type": "select",
+          "defaultValue": "SPR-SP",
+          "options": [
+            { "label": "SPR-SP", "value": "SPR-SP" },
+            { "label": "EMR-SP", "value": "EMR-SP" },
+            { "label": "SPR-EE", "value": "SPR-EE" },
+            { "label": "GNR-SP", "value": "GNR-SP" },
+            { "label": "SRF-SP", "value": "SRF-SP" },
+            { "label": "GNR-AP", "value": "GNR-AP" },
+            { "label": "GNR-D", "value": "GNR-D" }
+          ]
+        },
+        {
+          "label": "cpu_corecount",
+          "model": "cpu_corecount",
+          "type": "select",
+          "defaultValue": "XCC",
+          "options": [
+            { "label": "XCC", "value": "XCC" },
+            { "label": "LCC", "value": "LCC" },
+            { "label": "MCC", "value": "MCC" },
+            { "label": "HCC", "value": "HCC" }
+          ]
+        },
+        {
+          "label": "kernel_type",
+          "model": "kernel_type",
+          "type": "select",
+          "defaultValue": "RT",
+          "options": [
+            { "label": "RT", "value": "RT" },
+            { "label": "Generic", "value": "Generic" },
+            { "label": "LowLatency", "value": "LowLatency" }
+          ]
+        },
+        {
+          "label": "os",
+          "model": "os",
+          "type": "select",
+          "defaultValue": "UBUNTU",
+          "options": [
+            { "label": "UBUNTU", "value": "UBUNTU" },
+            { "label": "RHEL", "value": "RHEL" }
+          ]
+        },
+        {
+          "label": "pf1",
+          "model": "pf1",
+          "type": "text",
+          "defaultValue": "ens30f0"
+        },
+        {
+          "label": "pf2",
+          "model": "pf2",
+          "type": "text",
+          "defaultValue": "ens787f1"
+        },
+        {
+          "label": "pf3",
+          "model": "pf3",
+          "type": "text",
+          "defaultValue": "-1"
+        },
+        {
+          "label": "pf4",
+          "model": "pf4",
+          "type": "text",
+          "defaultValue": "-1"
+        },
+        {
+          "label": "bmc_ip",
+          "model": "bmc_ip",
+          "type": "text",
+          "defaultValue": "10.239.182.128"
+        },
+        {
+          "label": "bmc_user",
+          "model": "bmc_user",
+          "type": "text",
+          "defaultValue": "root"
+        },
+        {
+          "label": "bmc_password",
+          "model": "bmc_password",
+          "type": "text",
+          "defaultValue": "password"
+        },
+        {
+          "label": "bios_vendor",
+          "model": "bios_vendor",
+          "type": "select",
+          "defaultValue": "dell",
+          "options": [
+            { "label": "dell", "value": "dell" },
+            { "label": "hp", "value": "hp" },
+            { "label": "intel", "value": "intel" },
+            { "label": "quanta", "value": "quanta" },
+            { "label": "inspur", "value": "inspur" },
+            { "label": "lenovo", "value": "lenovo" }
+          ]
+        },
+        {
+          "label": "pdu_ip",
+          "model": "pdu_ip",
+          "type": "text",
+          "defaultValue": "10.239.115.75"
+        },
+        {
+          "label": "pdu_user",
+          "model": "pdu_user",
+          "type": "text",
+          "defaultValue": "admin"
+        },
+        {
+          "label": "pdu_password",
+          "model": "pdu_password",
+          "type": "text",
+          "defaultValue": "intel@123"
+        },
+        {
+          "label": "pdu_outlet",
+          "model": "pdu_outlet",
+          "type": "text",
+          "defaultValue": "5"
+        }
+      ]
+    },
+    {
+      "label": "SUT2",
+      "formItems": [
+        {
+          "label": "host",
+          "model": "host",
+          "type": "text",
+          "defaultValue": "10.112.248.87"
+        },
+        {
+          "label": "os",
+          "model": "os",
+          "type": "select",
+          "defaultValue": "UBUNTU",
+          "options": [
+            { "label": "UBUNTU", "value": "UBUNTU" },
+            { "label": "RHEL", "value": "RHEL" }
+          ]
+        },
+        {
+          "label": "pf1",
+          "model": "pf1",
+          "type": "text",
+          "defaultValue": "ens30f0"
+        },
+        {
+          "label": "pf2",
+          "model": "pf2",
+          "type": "text",
+          "defaultValue": "ens787f1"
+        },
+        {
+          "label": "pf3",
+          "model": "pf3",
+          "type": "text",
+          "defaultValue": "-1"
+        },
+        {
+          "label": "pf4",
+          "model": "pf4",
+          "type": "text",
+          "defaultValue": "-1"
+        }
+      ]
+    },
+    {
+      "label": "VM",
+      "formItems": [
+        {
+          "label": "image1",
+          "model": "image1",
+          "type": "text",
+          "defaultValue": "rhel86.img"
+        },
+        {
+          "label": "image2",
+          "model": "image2",
+          "type": "text",
+          "defaultValue": "rhel86rt1.img"
+        },
+        {
+          "label": "image3",
+          "model": "image3",
+          "type": "text",
+          "defaultValue": "rhel8.4.img"
+        },
+        {
+          "label": "image4",
+          "model": "image4",
+          "type": "text",
+          "defaultValue": "centos8.2.img"
+        }
+      ]
+    },
+
+
+
+
+    {
+      "label": "Networking",
+      "formItems": [
+        {
+          "label": "nic_conf_ice_driver_tar_path",
+          "model": "nic_conf_ice_driver_tar_path",
+          "type": "text",
+          "defaultValue": "/opt/APP/driver/tmp/ice-1.6.4.tar.gz"
+        },
+        {
+          "label": "nic_conf_ice_ice_driver_version",
+          "model": "nic_conf_ice_ice_driver_version",
+          "type": "text",
+          "defaultValue": "4.18.0-372.9.1.rt7.166.el8.x86_"
+        },
+        {
+          "label": "nic_conf_sut_nic_type",
+          "model": "nic_conf_sut_nic_type",
+          "type": "select",
+          "defaultValue": "CVL-4*25",
+          "options": [
+            { "label": "CVL-4*25", "value": "CVL-4*25" },
+            { "label": "CVL-100", "value": "CVL-100" },
+            { "label": "CVL-2*100", "value": "CVL-2*100" },
+            { "label": "CNV-2*100", "value": "CNV-2*100" },
+            { "label": "CNV-CPK-8*25", "value": "CNV-CPK-8*25" }
+          ]
+        },
+        {
+          "label": "nic_conf_pkg_nic_type",
+          "model": "nic_conf_pkg_nic_type",
+          "type": "select",
+          "defaultValue": "CVL-4*25",
+          "options": [
+            { "label": "CVL-4*25", "value": "CVL-4*25" },
+            { "label": "CVL-100", "value": "CVL-100" },
+            { "label": "CVL-2*100", "value": "CVL-2*100" },
+            { "label": "CNV-200", "value": "CNV-200" },
+            { "label": "CPK-8*25", "value": "CPK-8*25" }
+          ]
+        },
+        {
+          "label": "lag_conf_virtualize_vf_num",
+          "model": "lag_conf_virtualize_vf_num",
+          "type": "text",
+          "defaultValue": "64"
+        },
+        {
+          "label": "nic_ptp_conf_linuxptp_version",
+          "model": "nic_ptp_conf_linuxptp_version",
+          "type": "text",
+          "defaultValue": "v3.1.1"
+        },
+        {
+          "label": "switch_conf_switch_ip",
+          "model": "switch_conf_switch_ip",
+          "type": "text",
+          "defaultValue": "10.239.182.34"
+        },
+        {
+          "label": "switch_conf_switch_user",
+          "model": "switch_conf_switch_user",
+          "type": "text",
+          "defaultValue": "admin"
+        },
+        {
+          "label": "switch_conf_switch_password",
+          "model": "switch_conf_switch_password",
+          "type": "text",
+          "defaultValue": "intel@123"
+        },
+        {
+          "label": "switch_conf_switch_name",
+          "model": "switch_conf_switch_name",
+          "type": "select",
+          "defaultValue": "cisco",
+          "options": [
+            { "label": "cisco", "value": "cisco" },
+            { "label": "arista", "value": "arista" }
+          ]
+        },
+        {
+          "label": "switch_conf_port1",
+          "model": "switch_conf_port1",
+          "type": "text",
+          "defaultValue": "Eth1/17"
+        },
+        {
+          "label": "switch_conf_port2",
+          "model": "switch_conf_port2",
+          "type": "text",
+          "defaultValue": "Eth1/18"
         }
       ]
     },
@@ -36,22 +343,60 @@
       "label": "QAT",
       "formItems": [
         {
-          "label": "QAT_1",
-          "model": "QAT_1",
-          "type": "text"
+          "label": "qat_conf_qat_driver_dir",
+          "model": "qat_conf_qat_driver_dir",
+          "type": "text",
+          "defaultValue": "/opt/APP/Drivers/QAT/"
         },
         {
-          "label": "QAT_2",
-          "model": "QAT_2",
-          "type": "text"
-        },{
-          "label": "QAT_3",
-          "model": "QAT_3",
-          "type": "text"
-        },{
-          "label": "QAT_4",
-          "model": "QAT_4",
-          "type": "text"
+          "label": "qat_conf_qat_install_mod",
+          "model": "qat_conf_qat_install_mod",
+          "type": "select",
+          "defaultValue": "NIC",
+          "options": [
+            { "label": "NIC", "value": "NIC" },
+            { "label": "BMSM", "value": "BMSM" }
+          ]
+        },
+        {
+          "label": "qat_conf_qat_install_mod",
+          "model": "qat_conf_qat_install_mod",
+          "type": "select",
+          "defaultValue": "",
+          "options": [
+            { "label": "in-tree", "value": "in-tree" },
+            { "label": "out-tree", "value": "out-tree" },
+            { "label": "", "value": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "label": "DSA",
+      "formItems": [
+        {
+          "label": "dsa_dlb_conf_dlb_dpdk_name",
+          "model": "dsa_dlb_conf_dlb_dpdk_name",
+          "type": "text",
+          "defaultValue": "dpdk-23.03.tar.gz"
+        },
+        {
+          "label": "dsa_dlb_conf_container_image",
+          "model": "dsa_dlb_conf_container_image",
+          "type": "text",
+          "defaultValue": "pnp-harbor.sh.intel.com/npx-cycle-execution/dlb-8.2:v0.0"
+        },
+        {
+          "label": "dsa_dlb_conf_google_resource_path",
+          "model": "dsa_dlb_conf_google_resource_path",
+          "type": "text",
+          "defaultValue": "https://github.com/intel/DML.git"
+        },
+        {
+          "label": "dsa_dlb_conf_pktgen_dir",
+          "model": "dsa_dlb_conf_pktgen_dir",
+          "type": "text",
+          "defaultValue": "/root/pktgen-dpdk-pktgen-22.04.1"
         }
       ]
     },
@@ -59,30 +404,64 @@
       "label": "DLB",
       "formItems": [
         {
-          "label": "DLB_1",
-          "model": "DLB_1",
-          "type": "text"
+          "label": "dsa_dlb_conf_dlb_dpdk_name",
+          "model": "dsa_dlb_conf_dlb_dpdk_name",
+          "type": "text",
+          "defaultValue": "dpdk-23.03.tar.gz"
         },
         {
-          "label": "DLB_2",
-          "model": "DLB_2",
-          "type": "text"
-        },{
-          "label": "DLB_3",
-          "model": "DLB_3",
-          "type": "text"
+          "label": "dsa_dlb_conf_container_image",
+          "model": "dsa_dlb_conf_container_image",
+          "type": "text",
+          "defaultValue": "pnp-harbor.sh.intel.com/npx-cycle-execution/dlb-8.2:v0.0"
+        },
+        {
+          "label": "dsa_dlb_conf_google_resource_path",
+          "model": "dsa_dlb_conf_google_resource_path",
+          "type": "text",
+          "defaultValue": "https://github.com/intel/DML.git"
+        },
+        {
+          "label": "dsa_dlb_conf_pktgen_dir",
+          "model": "dsa_dlb_conf_pktgen_dir",
+          "type": "text",
+          "defaultValue": "/root/pktgen-dpdk-pktgen-22.04.1"
         }
       ]
     },
     {
-      "label": "DPDK",
+      "label": "SRIOV",
       "formItems": [
         {
-          "label": "DPDK_1",
-          "model": "DPDK_1",
-          "type": "text"
+          "label": "sriov_conf_container_image",
+          "model": "sriov_conf_container_image",
+          "type": "text",
+          "defaultValue": "pnp-harbor.sh.intel.com/npx-cycle-execution/dpdk-22.11:v0.2"
+        }
+      ]
+    },
+    {
+      "label": "SGX",
+      "formItems": [
+        {
+          "label": "sgx_sst_conf_pktgen_dir",
+          "model": "sgx_sst_conf_pktgen_dir",
+          "type": "text",
+          "defaultValue": "/root/pktgen-dpdk-pktgen-22.04.1"
+        }
+      ]
+    },
+    {
+      "label": "SST",
+      "formItems": [
+        {
+          "label": "sgx_sst_conf_pktgen_dir",
+          "model": "sgx_sst_conf_pktgen_dir",
+          "type": "text",
+          "defaultValue": "/root/pktgen-dpdk-pktgen-22.04.1"
         }
       ]
     }
+    
   ]
   

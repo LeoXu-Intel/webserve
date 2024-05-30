@@ -1,0 +1,22 @@
+{
+  "AI": ["security", "power_and_perf.ai_kpi"],
+  "BMSM": ["networking"],
+  "DLB": ["accelerator.data_load_balancing"],
+  "DPDK": ["networking.data_plane_develop_kit"],
+  "DSA": ["accelerator.data_streaming"],
+  "FlexRAN": ["cellular_modem.vran"],
+  "Graphics": null,
+  "Media": ["media"],
+  "Networking": ["networking"],
+  "PCIE": ["io_pcie"],
+  "Platform": ["system", "accelerator"],
+  "QAT": ["accelerator.quickassist"],
+  "RDT": ["telemetry"],
+  "SGX": ["security.sgx"],
+  "SRIOV": ["virtualization.single_root_i_o", "networking", "networking.data_plane_develop_kit"],
+  "SST-BF": ["power_management"],
+  "SST-CP": ["power_management"],
+  "TDX": ["security.tdx"],
+  "vHOST": ["virtualization"],
+  "VT-x": ["virtualization"]
+}

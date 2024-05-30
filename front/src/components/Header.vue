@@ -27,52 +27,61 @@
 </script>
 
 <style scoped>
+.header-container {
+  padding: 10px 20px; /* 添加内边距 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 可选：添加阴影效果 */
+}
+
 .menu-item-content {
   display: flex;
   align-items: center;
-  justify-content: center; /* 居中内容 */
-  width: 100%; /* 填充整个菜单项 */
+  justify-content: center;
 }
 
 .menu-item-logo {
-  height: 75px; /* 调整图片大小 */
-  margin-right: 10px; /* 在图片和文本之间添加一些间隔 */
+  height: 50px; /* 减小图片大小 */
+  margin-right: 10px;
 }
 
 .menu-item-text {
-  font-size: 25px; /* 调整文本大小 */
-  color: #333; /* 调整文本颜色，根据需要更改 */
-  font-weight: bold; /* 加粗文本 */
-  text-decoration: none; /* 去掉下划线 */
-  width: 130%; /* 填充整个菜单项 */
-  height: 130%;
-  display: flex; /* 使用 flex 布局 */
-  align-items: center; /* 垂直居中文本 */
-  justify-content: center; /* 水平居中文本 */
-
+  font-size: 18px; /* 调整文本大小 */
+  color: #333;
+  font-weight: bold;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .el-menu-item {
-  display: flex; 
+  display: flex;
   align-items: center;
-  width: 14%; /* 根据内容自动调整宽度*/
+  justify-content: center; /* 确保内容水平居中 */
+  padding: 0 15px; /* 添加左右内边距 */
+  margin-right: 10px; /* 添加右外边距 */
 }
 
-.header-container {
-  height: 130%;
-}
-
-
-
-/* 设置选中状态的文本颜色 */
+/* 选中状态的样式 */
 .el-menu-item.is-active .menu-item-text {
-  color: #f0efef; /* 设置选中状态下的文本颜色为白色 */
+  color: #f0efef;
 }
 .el-menu-item.is-active {
-  background-color: #0161aa; /* 设置选中状态下的文本颜色为白色 */
+  background-color: #0161aa;
 }
+
+/* 悬停状态的样式 */
 .el-menu-item:hover {
-  background-color: #0161aa !important; /* 设置悬停时背景色为透明，并确保覆盖默认样式 */
+  background-color: #0161aa !important;
+}
+
+/* 确保菜单项不会被压缩到小于其内容的宽度 */
+.el-menu-item {
+  flex-shrink: 0;
+}
+
+/* 为菜单添加最小高度 */
+.el-menu {
+  min-height: 80px; /* 根据实际情况调整 */
 }
 </style>
 

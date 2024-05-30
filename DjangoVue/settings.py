@@ -171,3 +171,33 @@ STATICFILES_DIRS = [
 ]
 
 
+# LDAP配置
+import ldap
+from django_auth_ldap.config import LDAPSearch, GroupOfNamesType
+
+AUTH_LDAP_SERVER_URI = 'ldap://corpldap.intel.com:3268'
+AUTH_LDAP_BIND_DN = "CN=sys_camsw,OU=Generic-Account,OU=Resources,DC=ccr,DC=corp,DC=intel,DC=com"
+AUTH_LDAP_BIND_PASSWORD = 'q!2345678'
+AUTH_LDAP_USER_SEARCH = LDAPSearch('DC=corp,DC=intel,DC=com', ldap.SCOPE_SUBTREE,
+    "(&(objectcategory=person)(objectClass=user)(sAMAccountName=%(user)s))", )
+
+AUTH_LDAP_FIND_GROUP_PERMS = True
+AUTH_LDAP_CACHE_GROUPS = True
+AUTH_LDAP_GROUP_CACHE_TIMEOUT = 3600
+AUTH_LDAP_GROUP_SEARCH = LDAPSearch("CN=DHG_PRC_SQE_OUTSOUCING,OU=Delegated,OU=Groups,DC=ccr,DC=corp,DC=intel,DC=com",
+    ldap.SCOPE_SUBTREE, "(objectClass=groupOfNames)")
+AUTH_LDAP_GROUP_TYPE = GroupOfNamesType(name_attr="cn")
+AUTH_LDAP_ALWAYS_UPDATE_USER = True
+AUTH_LDAP_MIRROR_GROUPS = True
+AUTH_LDAP_USER_ATTR_MAP = {
+    "first_name": "givenName",
+    "last_name": "sn",
+    "email": "mail"
+}
+
+# 确保添加LDAP后端到认证后端列表
+AUTHENTICATION_BACKENDS = [
+    'django_auth_ldap.backend.LDAPBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    # ...其他认证后端
+]
