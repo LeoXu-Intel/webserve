@@ -5,9 +5,9 @@ import Container from "../components/Container.vue";
 import LoadingView from "../components/Loading.vue";
 import History from "../components/History/History.vue";
 
-import Aotu_Config from "../components/LabTools/Sensor/Aotu_Config.vue";
-import Test_Case_Overview from "../components/LabTools/Sensor/Test_Case_Overview.vue";
-import Env_Config from "../components/LabTools/Sensor/Env_Config.vue";
+import Aotu_Config from "../components/Execution/Aotu_Config.vue";
+import Test_Case_Overview from "../components/Execution/Test_Case_Overview.vue";
+import Env_Config from "../components/Execution/Env_Config.vue";
 
 // 定义路由数组
 const routes = [
@@ -16,20 +16,20 @@ const routes = [
 
   // LabTools
   {
-    path: "/LabTools",
+    path: "/Execution",
     component: Container,
     children: [
-      // Sensor 相关路由
+      //  相关路由
       {
-        path: "Sensor/Env_Config",
+        path: "Env_Config",
         component: Env_Config, // 注意这里不是 components
       },
       {
-        path: "Sensor/Test_Case_Overview",
+        path: "Test_Case_Overview",
         component: Test_Case_Overview, // 注意这里不是 components
       },
       {
-        path: "Sensor/Aotu_Config",
+        path: "Aotu_Config",
         component: Aotu_Config, // 注意这里不是 components
       },
     ],

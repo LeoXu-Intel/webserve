@@ -11,7 +11,7 @@
     
     <el-menu-item index="1">
       <div class="menu-item-content">
-        <router-link to="/LabTools/Sensor/Test_Case_Overview" class="menu-item-text">Execution</router-link>
+        <router-link to="/Execution/Test_Case_Overview" class="menu-item-text">Execution</router-link>
       </div>
     </el-menu-item>
     <el-menu-item index="2">

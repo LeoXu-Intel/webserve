@@ -65,14 +65,16 @@ def SearchTestCycle(request):
         
         ##NEI  // 
         payload = """
-        {
-        "eql":"select title where server_platf.milestone.title contains 'NPX' or server_platf.milestone.title contains 'NEP' or server_platf.milestone.title contains 'NEI' order by server_platf.milestone.updated_date desc"
-        }
+{
+    "eql": "select title,updated_date where server_platf.milestone.title contains 'NPX' or server_platf.milestone.title contains 'NEP' or server_platf.milestone.title contains 'NEI' SORTBY updated_date DESC"
+}
+
         
         """
         
+        print(payload)
         response = requests.post(url, verify=False,auth=HTTPKerberosAuth(), headers = headers, data = payload)
-        
+        print(response.json())
         if response.status_code == 200:
             data_dict = response.json()
             data_list = data_dict.get('data', [])

@@ -54,7 +54,7 @@ export default {
         // 登录成功，设置登录状态并导航到 /LabTools
         if (response.data.success) {
           localStorage.setItem('isUserLoggedIn', 'true');
-          this.$router.push('/LabTools');
+          this.$router.push('/Execution/Test_Case_Overview');
         } else {
           // 登录失败，显示错误消息
           alert('Incorrect username or password.');
