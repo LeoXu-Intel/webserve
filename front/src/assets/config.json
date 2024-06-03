@@ -372,36 +372,7 @@
       ]
     },
     {
-      "label": "DSA",
-      "formItems": [
-        {
-          "label": "dsa_dlb_conf_dlb_dpdk_name",
-          "model": "dsa_dlb_conf_dlb_dpdk_name",
-          "type": "text",
-          "defaultValue": "dpdk-23.03.tar.gz"
-        },
-        {
-          "label": "dsa_dlb_conf_container_image",
-          "model": "dsa_dlb_conf_container_image",
-          "type": "text",
-          "defaultValue": "pnp-harbor.sh.intel.com/npx-cycle-execution/dlb-8.2:v0.0"
-        },
-        {
-          "label": "dsa_dlb_conf_google_resource_path",
-          "model": "dsa_dlb_conf_google_resource_path",
-          "type": "text",
-          "defaultValue": "https://github.com/intel/DML.git"
-        },
-        {
-          "label": "dsa_dlb_conf_pktgen_dir",
-          "model": "dsa_dlb_conf_pktgen_dir",
-          "type": "text",
-          "defaultValue": "/root/pktgen-dpdk-pktgen-22.04.1"
-        }
-      ]
-    },
-    {
-      "label": "DLB",
+      "label": "DSA/DLB",
       "formItems": [
         {
           "label": "dsa_dlb_conf_dlb_dpdk_name",
@@ -441,18 +412,7 @@
       ]
     },
     {
-      "label": "SGX",
-      "formItems": [
-        {
-          "label": "sgx_sst_conf_pktgen_dir",
-          "model": "sgx_sst_conf_pktgen_dir",
-          "type": "text",
-          "defaultValue": "/root/pktgen-dpdk-pktgen-22.04.1"
-        }
-      ]
-    },
-    {
-      "label": "SST",
+      "label": "SGX/SST",
       "formItems": [
         {
           "label": "sgx_sst_conf_pktgen_dir",

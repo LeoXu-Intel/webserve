@@ -113,18 +113,37 @@
       const selection4 = computed(() => store.state.selections.selection4);
       //const activeName = computed(() => store.state.activeTab); // 假设 activeTab 保存在 Vuex store 的状态中
       const combinedTabsConfig = computed(() => {
-        // 如果selection4为空，则返回所有配置数据
+        // 如果 selection4 为空，则返回所有配置数据
         if (selection4.value.length === 0) {
           return configData;
         }
 
-        // 如果selection4不为空，则返回默认配置加上其他选中的配置
+        // 返回默认配置
         const defaultTabsConfig = configData.filter(tab => ["SUT1", "SUT2", "VM"].includes(tab.label));
-        const otherTabsConfig = configData.filter(tab => selection4.value.includes(tab.label) && !["SUT1", "SUT2", "VM"].includes(tab.label));
-        
+
+        // 根据 selection4 的值过滤出其他配置
+        let otherTabsConfig = configData.filter(tab => selection4.value.includes(tab.label) && !["SUT1", "SUT2", "VM"].includes(tab.label));
+
+        // 如果 selection4 包含 'DSA' 或 'DLB'，则添加 'DSA/DLB' 配置
+        if (selection4.value.includes('DSA') || selection4.value.includes('DLB')) {
+          const dsaDlbConfig = configData.find(tab => tab.label === 'DSA/DLB');
+          if (dsaDlbConfig) {
+            otherTabsConfig.push(dsaDlbConfig);
+          }
+        }
+
+        // 如果 selection4 包含 'SGX' 或 'SST'，则添加 'SGX/SST' 配置
+        if (selection4.value.includes('SGX') || selection4.value.includes('SST')) {
+          const sgxSstConfig = configData.find(tab => tab.label === 'SGX/SST');
+          if (sgxSstConfig) {
+            otherTabsConfig.push(sgxSstConfig);
+          }
+        }
+
         // 合并默认标签页和其他选中的标签页配置
         return [...defaultTabsConfig, ...otherTabsConfig];
       });
+
 
       const forms = reactive({}); // 为每个tab和formItem创建响应式属性
   
