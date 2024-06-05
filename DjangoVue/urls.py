@@ -12,4 +12,5 @@ urlpatterns = [
     path('SearchCycleConfig', views.SearchCycleConfig),
     path('SearchTestCase', views.SearchTestCase),
     path('api/login/', views.login_view),
+    path('BuildENV', views.BuildENV),
 ]

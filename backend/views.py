@@ -198,6 +198,8 @@ def SearchTestCase(request):
                     print(res)
                     automation_status = res['data'][0]['server_platf.test_case_definition.automation_status']
                     command_line = res['data'][0]['server_platf.test_case_definition.command_line']
+                    if(automation_status!='Deployed'):
+                        continue
                     table_data.append({
                     'ID': id,
                     'Title': title,
@@ -213,6 +215,8 @@ def SearchTestCase(request):
                     print(res)
                     automation_status = res['data'][0]['server_platf.test_case_definition.automation_status']
                     command_line = res['data'][0]['server_platf.test_case_definition.command_line']
+                    if(automation_status!='Deployed'):
+                        continue
                     table_data.append({
                     'ID': id,
                     'Title': title,
@@ -246,47 +250,89 @@ def SearchTestDomain(request):
     return JsonResponse(job_names, safe=False)
 
 
-
-
-
-
-
-
-
 @csrf_exempt  # 这个装饰器免除了视图的CSRF验证。请谨慎使用。
 
 @require_http_methods(["POST"])  # 这个视图只接受POST请求。
-def test_view_P(request):
+def BuildENV(request):
     try:
         print("开始获取")
-        jenkins_server_url = "http://spiv-pnp-jenkins.sh.intel.com:30002"
+        data = json.loads(request.body.decode('utf-8'))  
+        platform_data = data.get('platform', {})
+        form_data = data.get('formData', {})
+        
+        
+        jenkins_server_url = f"http://spiv-pnp-jenkins.sh.intel.com:30002/view/NPX%20Cycle%20Execution/job/{platform_data}"
+        print(jenkins_server_url)
         username = 'root'
-        password = 'Intelspiv@123'
-
-        # 创建Jenkins服务器实例
+        password = '113939dad243ea8219811b8feedeaf6bed'
         server = jenkins.Jenkins(jenkins_server_url, username=username, password=password)
+        print(server)
+        jobs=server.get_jobs()
+        print(jobs)
+        # 您想要搜索的模糊匹配字符串
+        search_string = "-test-env"
 
-        # 从POST请求体中解析JSON数据
-        parameters = json.loads(request.body.decode('utf-8'))  # 确保解码请求体
+        # 创建一个空列表来存储匹配的作业
+        matching_jobs = []
 
-        # 这里您需要根据Jenkins的API要求来处理parameters
-        # 如果Jenkins需要特定格式，您需要转换parameters到那个格式
+        # 遍历作业列表
+        for job in jobs:
+            # 检查作业名称是否包含搜索字符串
+            if search_string in job['name']:
+                # 如果包含，添加到匹配的作业列表中
+                matching_jobs.append(job)
+        # 如果只需要作业名称，可以这样获取
+        matching_job_names = [job['name'] for job in matching_jobs]
+        print("=------------------==========------------------")
+        print(matching_job_names[0])
+        print("=------------------==========------------------")
+        print(form_data)
+        print("=------------------==========------------------")
+        # 将JSON字符串转换为Python字典
+        if isinstance(form_data, str):
+            # 将JSON字符串转换为Python字典
+            original_json_dict = json.loads(form_data)
+        else:
+            # 如果form_data已经是一个字典，就不需要解析
+            original_json_dict = form_data
 
-        job_name = "APITest_P"
+        # 创建一个新的字典来存储合并后的键值对
+        parameters = {}
 
-        # 使用参数触发Jenkins作业
-        server.build_job(job_name, parameters)
+        # 遍历原始字典中的每个键值对
+        for key, value in original_json_dict.items():
+            # 确保值是一个字典
+            if isinstance(value, dict):
+                # 将内部字典的键值对添加到新的字典中
+                parameters.update(value)
 
-        print("---------Run----------结束-----")
+        # 打印或返回合并后的JSON字符串
+        print(parameters)
+        print("=------------------==========------------------")
+        server = jenkins.Jenkins(jenkins_server_url, username=username, password=password)
+        status = server.build_job(matching_job_names[0],parameters)
+        
 
-        # 获取最后一次构建的编号
-        last_build_number = server.get_job_info(job_name)['lastCompletedBuild']['number']
-        build_info = server.get_build_info(job_name, last_build_number)
+        full_job_name = f"http://spiv-pnp-jenkins.sh.intel.com:30002/view/NPX%20Cycle%20Execution/job/{platform_data}/job/{matching_job_names[0]}"
+        import time
+        time.sleep(15)
 
-        return JsonResponse({'result': build_info})
+        # 获取job的最新构建编号
+        job_info = server.get_job_info(matching_job_names[0])
+        last_build_number = job_info['lastBuild']['number']
+
+        # 构造最新构建的URL
+        build_url = f"{full_job_name}/{last_build_number}/console"
+
+        # 返回构建的URL给前端
+        return JsonResponse({'build_url': build_url})
+        
     except Exception as e:
         # 处理异常，例如连接错误、认证错误等
         return JsonResponse({'error': str(e)}, status=500)
+
+
+
 
 
 

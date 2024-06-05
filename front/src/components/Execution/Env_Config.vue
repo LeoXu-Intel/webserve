@@ -79,13 +79,20 @@
     </el-tabs>
   </div>
   
+  <div v-if="buildLink" class="build-link-container" style="display: flex; justify-content: flex-end; align-items: center; position: absolute; bottom: 100%; right: 0; margin-bottom: 10px;">
+    <a :href="buildLink" target="_blank">View Build</a>
+  </div>
   <div class="buttons-container" style="display: flex; justify-content: flex-start; align-items: flex-end; position: absolute; bottom: 70; right: 0; margin: 0px;">
   <div class="button-container">
     <button @click="Back">Back</button>
   </div>
   <div class="button-container">
-    <button @click="build">Build</button>
+    <el-button type="primary" @click="BuildENV" :loading="isBuilding">Build</el-button>
   </div>
+  <div class="button-container">
+    <button @click="Next">Next</button>
+  </div>
+  
 </div>
   </template>
   
@@ -97,16 +104,35 @@
   import configData from '@/assets/config.json';
   import { reactive } from 'vue';
   import { ref } from 'vue';
-  
+  import axios from 'axios';
   
   
   export default {
     
     setup() {
+      const isBuilding = ref(false);
       const activeName = ref('SUT1');
       const store = useStore();
-  
+      const buildLink = ref(null);
       // 使用 computed 来创建只读的计算属性，它们将从 Vuex store 中获取状态
+      const BuildENV = async () => {
+        isBuilding.value = true;
+        const payload = {
+          platform: selection1.value,
+          formData: forms,
+        };
+        try {
+          const response = await axios.post('/BuildENV', payload);
+          console.log(response.data);
+          buildLink.value = response.data.build_url;
+        } catch (error) {
+          console.error(error);
+        }finally {
+          isBuilding.value = false; // 构建完成或出现错误，隐藏加载指示器
+        }
+      };
+
+      
       const selection1 = computed(() => store.state.selections.selection1);
       const selection2 = computed(() => store.state.selections.selection2);
       const selection3 = computed(() => store.state.selections.selection3);
@@ -119,10 +145,10 @@
         }
 
         // 返回默认配置
-        const defaultTabsConfig = configData.filter(tab => ["SUT1", "SUT2", "VM"].includes(tab.label));
+        const defaultTabsConfig = configData.filter(tab => ["SUT1", "SUT2", "VM","BMC","PDU","Switch"].includes(tab.label));
 
         // 根据 selection4 的值过滤出其他配置
-        let otherTabsConfig = configData.filter(tab => selection4.value.includes(tab.label) && !["SUT1", "SUT2", "VM"].includes(tab.label));
+        let otherTabsConfig = configData.filter(tab => selection4.value.includes(tab.label) && !["SUT1", "SUT2", "VM","BMC","PDU","Switch"].includes(tab.label));
 
         // 如果 selection4 包含 'DSA' 或 'DLB'，则添加 'DSA/DLB' 配置
         if (selection4.value.includes('DSA') || selection4.value.includes('DLB')) {
@@ -156,11 +182,12 @@
       });
   
       // 定义build方法
-      const build = () => {
+      const Next = () => {
         // 这里应该是你的构建逻辑
         console.log('Build function called');
         this.$router.push('/Execution/Aotu_Config');
       };
+      
   
   
   
@@ -173,13 +200,16 @@
         activeName,
         combinedTabsConfig,
         forms,
-        build,
-      
+        Next,
+        buildLink, // 用于存储构建链接
+        BuildENV,
+        isBuilding,
       };
     },
     methods: {
+  
       
-      build() {
+      Next() {
         this.$router.push('/Execution/Aotu_Config');
       },
       Back() {
@@ -198,6 +228,19 @@
   
   
   <style>
+
+
+.build-link-container a {
+  color: #409EFF; /* 设置链接颜色 */
+  text-decoration: none; /* 去掉下划线 */
+}
+
+.build-link-container a:hover {
+  text-decoration: underline; /* 鼠标悬停时添加下划线 */
+}
+
+
+
   .buttons-container {
   display: flex;
   justify-content: space-between; /* 或者其他你想要的对齐方式 */

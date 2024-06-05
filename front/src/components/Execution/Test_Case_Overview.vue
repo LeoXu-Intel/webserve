@@ -1,6 +1,6 @@
 <template>
   <div style="display: flex; width: 100%; justify-content: center;">
-    <el-steps  finish-status="success" simple style="width: 70%; margin-top: 5px;">
+    <el-steps  finish-status="success" simple style="width: 70%; margin-top: 0px;">
       <el-step title="Test Case Overview"></el-step>
       <el-step title="Environment Configuration"></el-step>
       <el-step title="Automation Configuration"></el-step>
@@ -88,7 +88,7 @@
   
     
 
-    <div style="display: flex; justify-content: right; margin-bottom: 10px; margin-right: 10%;">
+    <div style="display: flex; justify-content: right; margin-bottom:5px;margin-top:5px; margin-right: 10%;">
       <el-input
         placeholder="Search table..."
         v-model="searchQuery"
@@ -141,16 +141,16 @@
     </el-table>
      </div>
 
-     <el-row type="flex" justify="space-between" align="middle" style="margin-top: 10px; width: 80%; margin-left: auto; margin-right: auto;">
-  <el-col :span="12">
-    <div style="padding-left: 20px;">
-      <span>Total Records: {{ filteredTableData.length }}</span>
-    </div>
-  </el-col>
-  <div class="button-container">
-      <button @click="navigateToOtherPage">Next</button>
-    </div>
-</el-row>
+     <el-row type="flex" justify="space-between" align="middle" style="margin-top: 5px; width: 80%; margin-left: auto; margin-right: 0;">
+      <el-col :span="12">
+        <div style="padding-left: 20px;">
+          <span>Total Records: {{ filteredTableData.length }}</span>
+        </div>
+      </el-col>
+      <div class="button-container">
+          <button @click="navigateToOtherPage">Next</button>
+        </div>
+    </el-row>
       
     
   
@@ -377,9 +377,9 @@
         this.filteredTableData = this.filteredData;
       },
       Search() {
-          if (!this.selection1Model || !this.selection2Model) {
+          if (!this.selection1Model || !this.selection2Model ||!this.selection3Model) {
             this.$message({
-              message: 'Platform and Test_Cycle_Name cannot be empty.',
+              message: 'Platform//Test_Cycle_Name//Cycle_Config cannot be empty.',
               type: 'error'
             });
             return; // 如果任一字段为空，显示提示并退出方法
@@ -425,7 +425,7 @@
   .button-container {
     display: flex;
     justify-content: flex-end; /* 将按钮对齐到右边 */
-    margin-right: 85px; /* 右边距20px */
+    margin-right: 10px; /* 右边距20px */
   }
   
   .button-container button {
@@ -453,9 +453,9 @@
   
   .search-form {
     max-width: 90%;
-    margin: 10px auto;
-    padding: 10px;
-    border: 3px solid #f7f6f6;
+    margin: 0px auto;
+    padding: 0px;
+    border: 0px solid #f7f6f6;
     border-radius: 10px;
     background: #ffffff;
   }
@@ -463,7 +463,7 @@
   .row {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 5px;
+    margin-bottom: 0px;
   }
   
   .input-group {
