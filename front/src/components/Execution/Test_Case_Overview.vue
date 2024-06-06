@@ -205,6 +205,7 @@
             { label: 'TDX', value: 'TDX' },
             { label: 'vHOST', value: 'vHOST' },
             { label: 'VT-x', value: 'VT-x' },
+            { label: 'All', value: '' }
           ]
         },
         value1: [],

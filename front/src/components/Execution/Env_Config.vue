@@ -79,9 +79,10 @@
     </el-tabs>
   </div>
   
-  <div v-if="buildLink" class="build-link-container" style="display: flex; justify-content: flex-end; align-items: center; position: absolute; bottom: 100%; right: 0; margin-bottom: 10px;">
+  <div v-if="buildLink" class="build-link-container">
     <a :href="buildLink" target="_blank">View Build</a>
   </div>
+
   <div class="buttons-container" style="display: flex; justify-content: flex-start; align-items: flex-end; position: absolute; bottom: 70; right: 0; margin: 0px;">
   <div class="button-container">
     <button @click="Back">Back</button>
@@ -229,6 +230,15 @@
   
   <style>
 
+.build-link-container {
+  display: flex;
+  justify-content: flex-end; /* 将按钮对齐到右边 */
+  margin-right: 280px; /* 右边距20px */
+  bottom: 10px;
+  right: 10px;
+}
+
+
 
 .build-link-container a {
   color: #409EFF; /* 设置链接颜色 */
@@ -246,7 +256,7 @@
   justify-content: space-between; /* 或者其他你想要的对齐方式 */
 }
   .tabs-container {
-    max-width: 600px; /* 最大宽度，宽度可以根据内容自动调整 */
+    max-width: 900px; /* 最大宽度，宽度可以根据内容自动调整 */
     min-height: 400px; /* 最小高度，高度可以根据内容自动调整 */
     margin: 20px auto; /* 上下边距和自动左右边距 */
     box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1); /* 添加阴影效果 */
