@@ -44,10 +44,10 @@ dist代表的是打包之后的文件夹，表明是使用npm run build 打包�
 -->传入到后端,进行api接口，然后将数据从nginx返回到前端，完成前端数据传输 
 
 # 2. Nginx介绍
-
+https://wiki.ith.intel.com/display/NPX/Webserver+Setting
 
 # 3. Django后端介绍
-
+https://wiki.ith.intel.com/display/NPX/Webserver+Setting
 
 
 
