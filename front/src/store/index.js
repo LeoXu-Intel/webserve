@@ -8,6 +8,7 @@ export default createStore({
       selection2: '',
       selection3: '',
       selection4: [],
+      id:[],
     },
   },
   mutations: {

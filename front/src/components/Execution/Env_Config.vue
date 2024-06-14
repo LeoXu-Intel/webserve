@@ -1,4 +1,12 @@
 <template>
+  <!-- 自定义遮罩层，当 isBuilding 为 true 时显示 -->
+    <div v-if="isBuilding" class="loading-overlay">
+    <div class="loading-content">
+      <el-spinner></el-spinner>
+      <p>Building in progress...</p>
+      <p v-if="buildLink">View the build progress <a :href="buildLink" target="_blank">here</a>.</p>
+    </div>
+  </div>
   <div style="display: flex; width: 100%; justify-content: center;">
     <el-steps :active="1" finish-status="success" simple style="width: 70%; margin-top: 5px;">
       <el-step title="Test Case Overview"></el-step>
@@ -99,22 +107,75 @@
   
   
   <script>
-  
-  import { computed } from 'vue';
-  import { useStore } from 'vuex';
-  import configData from '@/assets/config.json';
-  import { reactive } from 'vue';
-  import { ref } from 'vue';
-  import axios from 'axios';
+import { computed, reactive, ref, watch, onBeforeUnmount } from 'vue';
+import { useStore } from 'vuex';
+import { useRouter } from 'vue-router'; // 从 'vue-router' 导入 useRouter
+import configData from '@/assets/config.json';
+import axios from 'axios';
+import { ElLoading } from 'element-plus';
+
   
   
   export default {
     
     setup() {
       const isBuilding = ref(false);
-      const activeName = ref('SUT1');
       const store = useStore();
       const buildLink = ref(null);
+      const pollingInterval = ref(null);
+      let loadingInstance = null;
+      const router = useRouter(); // 使用 useRouter 获取路由实例
+       // 监视 isBuilding 的变化
+
+      const checkBuildStatus = async () => {
+      try {
+        const payload = {
+          platform: selection1.value,
+          formData: forms,
+        };
+        const response = await axios.post('/Building', payload); 
+        const { building, result } = response.data;
+        isBuilding.value = building;
+
+        if (!building) {
+          // 如果构建完成，显示结果并停止轮询
+          console.log('Build result:', result);
+          clearInterval(pollingInterval.value);
+          pollingInterval.value = null;
+        }
+      } catch (error) {
+        console.error('Error fetching build status:', error);
+        clearInterval(pollingInterval.value);
+        pollingInterval.value = null;
+      }
+    };
+
+    // 开始轮询
+    const startPolling = () => {
+      isBuilding.value = true;
+      pollingInterval.value = setInterval(checkBuildStatus, 5000); // 每5秒检查一次
+    };
+
+    // 组件卸载前清除定时器
+    onBeforeUnmount(() => {
+      if (pollingInterval.value) {
+        clearInterval(pollingInterval.value);
+      }
+    });
+
+    watch(isBuilding, (newVal) => {
+      if (newVal && !loadingInstance) {
+        loadingInstance = ElLoading.service({
+          fullscreen: true,
+          text: 'Building in progress...',
+          spinner: 'el-icon-loading',
+          background: 'rgba(0, 0, 0, 0.7)',
+        });
+      } else if (!newVal && loadingInstance) {
+        loadingInstance.close();
+        loadingInstance = null;
+      }
+    });
       // 使用 computed 来创建只读的计算属性，它们将从 Vuex store 中获取状态
       const BuildENV = async () => {
         isBuilding.value = true;
@@ -138,7 +199,7 @@
       const selection2 = computed(() => store.state.selections.selection2);
       const selection3 = computed(() => store.state.selections.selection3);
       const selection4 = computed(() => store.state.selections.selection4);
-      //const activeName = computed(() => store.state.activeTab); // 假设 activeTab 保存在 Vuex store 的状态中
+      const activeName = ref('SUT1'); // 假设 activeTab 保存在 Vuex store 的状态中
       const combinedTabsConfig = computed(() => {
         // 如果 selection4 为空，则返回所有配置数据
         if (selection4.value.length === 0) {
@@ -182,14 +243,24 @@
         });
       });
   
-      // 定义build方法
-      const Next = () => {
-        // 这里应该是你的构建逻辑
-        console.log('Build function called');
-        this.$router.push('/Execution/Aotu_Config');
-      };
       
-  
+      onBeforeUnmount(() => {
+      if (loadingInstance) {
+        loadingInstance.close();
+      }
+    });
+
+    // 定义 Next 方法
+    const Next = () => {
+      // 这里应该是你的构建逻辑
+      console.log('Build function called');
+      router.push('/Execution/Aotu_Config'); // 使用 router 实例进行导航
+    };
+
+    // 定义 Back 方法
+    const Back = () => {
+      router.push('/Execution/Test_Case_Overview'); // 使用 router 实例进行导航
+    };
   
   
       // 返回响应式引用和函数...
@@ -201,22 +272,20 @@
         activeName,
         combinedTabsConfig,
         forms,
-        Next,
         buildLink, // 用于存储构建链接
         BuildENV,
         isBuilding,
+        startPolling,
+        Next,
+        Back,
       };
     },
-    methods: {
-  
-      
-      Next() {
-        this.$router.push('/Execution/Aotu_Config');
-      },
-      Back() {
-        this.$router.push('/Execution/Test_Case_Overview');
-    },
-    },
+    data() {
+    return {
+      isBuilding: false,
+      pollingInterval: null,
+    };
+  },
     state: {
   // ... 其他状态
   activeTab: 'SUT1', // 设置默认激活的选项卡为"SUT1"

@@ -63,28 +63,28 @@
     </el-scrollbar>
   </div>
 
-  <!-- 第二组多选框 -->
-  <div class="checkbox-group">
-    <el-input
-      v-model="searchText2"
-      placeholder="搜索..."
-      clearable
-      @clear="filterOptions2"
-      @input="filterOptions2">
-    </el-input>
-    <el-scrollbar style="height: 300px;">
-      Test_Case
-      <el-checkbox-group v-model="checkedGroup2">
-        <el-checkbox
-          v-for="item in filteredOptions2"
-          :key="item.value"
-          :label="item.label"
-          border>
-        </el-checkbox>
-      </el-checkbox-group>
-    </el-scrollbar>
-  </div>
+      <!-- 第二组多选框 -->
+    <div class="checkbox-group">
+      <el-input
+        v-model="searchText2"
+        placeholder="搜索..."
+        clearable
+        @clear="filterOptions2"
+        @input="filterOptions2">
+      </el-input>
+      <el-scrollbar style="height: 300px;">
+        Test_Case
+        <el-checkbox-group v-model="checkedGroup2">
+          <el-checkbox
+            v-for="item in options2" 
+            :key="item.value"
+            :label="item.label"
+            border>
+          </el-checkbox>
+        </el-checkbox-group>
+      </el-scrollbar>
     </div>
+  </div>
       
   <div class="buttons-container" style="display: flex; justify-content: flex-start; align-items: flex-end; position: absolute; bottom: 70; right: 0; margin: 10px;">
   <div class="button-container">
@@ -97,20 +97,25 @@
   </template>
   
   <script>
-  import { computed, ref } from 'vue'; // 确保 ref 被导入
+  import { computed, ref ,watch} from 'vue'; // 确保 ref 被导入
   import { useStore } from 'vuex';
+  import { useRouter } from 'vue-router'; // 从 'vue-router' 导入 useRouter
+  import axios from 'axios';
+
   export default {
     setup() {
       const store = useStore();
+      const router = useRouter(); 
   
       // 使用 computed 来创建只读的计算属性，它们将从 Vuex store 中获取状态
       const selection1 = computed(() => store.state.selections.selection1);
       const selection2 = computed(() => store.state.selections.selection2);
       const selection3 = computed(() => store.state.selections.selection3);
       const selection4 = computed(() => store.state.selections.selection4);
+      const marker = ref('')
+
+        
   
-      // 假设你有一个 action 来加载数据
-      store.dispatch('loadSelections');
   
         // 搜索文本的响应式引用
       const searchText1 = ref('');
@@ -132,21 +137,22 @@
             
             // ...更多选项
             ]);
-      const options2=ref ([
-            { label: 'Case_Marker_1', value: 'Case_Marker_1' },
-            { label: 'Case_Marker_2', value: 'Case_Marker_2' },
-            { label: 'Case_Marker_3', value: 'Case_Marker_3' },
-            { label: 'Case_Marker_4', value: 'Case_Marker_4' },
-            { label: 'Case_Marker_5', value: 'Case_Marker_5' },
-            { label: 'Case_Marker_6', value: 'Case_Marker_6' },
-            { label: 'Case_Marker_7', value: 'Case_Marker_7' },
-            { label: 'Case_Marker_8', value: 'Case_Marker_8' },
-            { label: 'Case_Marker_9', value: 'Case_Marker_9' },
-            { label: 'Case_Marker_10', value: 'Case_Marker_10' },
-            { label: 'Case_Marker_11', value: 'Case_Marker_11' },
-            
-            // ...更多选项
-            ]);
+      const ids = computed(() => store.state.selections.id); // 创建响应式引用
+      const options2 = ref([]); 
+      console.log(ids);
+
+        // 发送请求到后端并更新options2
+      const fetchOptions2 = async () => {
+        try {
+          const response = await axios.post('/api/your-endpoint', { ids: ids.value });
+          options2.value = response.data; // 假设后端返回的数据格式是我们需要的
+        } catch (error) {
+          console.error('Error fetching options:', error);
+        }
+      };
+
+      // 当ids更新时，调用fetchOptions2方法
+      watch(ids, fetchOptions2, { immediate: true });
 
      // 计算属性，用于根据搜索文本过滤选项
      const filteredOptions1 = computed(() => {
@@ -169,7 +175,10 @@
 
     // 默认选中的值
     const checkedGroup1 = ref(options1.value.map(item => item.value));
-    const checkedGroup2 = ref(options2.value.map(item => item.value));
+    // 使用 marker 的值来创建一个新的计算属性
+    const checkedGroup2 = computed(() => {
+          return options2.value.map(item => item.value);
+        });
 
     return {
       selection1,
@@ -182,6 +191,8 @@
       filteredOptions2,
       checkedGroup1,
       checkedGroup2,
+      options2,
+      fetchOptions2,
     };
   },
     methods: {

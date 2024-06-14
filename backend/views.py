@@ -322,7 +322,7 @@ def BuildENV(request):
         last_build_number = job_info['lastBuild']['number']
 
         # 构造最新构建的URL
-        build_url = f"{full_job_name}/{last_build_number}/console"
+        build_url = f"{full_job_name}"
 
         # 返回构建的URL给前端
         return JsonResponse({'build_url': build_url})
@@ -330,6 +330,53 @@ def BuildENV(request):
     except Exception as e:
         # 处理异常，例如连接错误、认证错误等
         return JsonResponse({'error': str(e)}, status=500)
+    
+def Building(request):
+    data = json.loads(request.body.decode('utf-8'))  
+    platform_data = data.get('platform', {})
+    jenkins_server_url = f"http://spiv-pnp-jenkins.sh.intel.com:30002/view/NPX%20Cycle%20Execution/job/{platform_data}"
+    print(jenkins_server_url)
+    username = 'root'
+    password = '113939dad243ea8219811b8feedeaf6bed'
+    server = jenkins.Jenkins(jenkins_server_url, username=username, password=password)
+    jobs=server.get_jobs()
+        
+    search_string = "-test-env"
+
+    # 创建一个空列表来存储匹配的作业
+    matching_jobs = []
+
+    # 遍历作业列表
+    for job in jobs:
+        # 检查作业名称是否包含搜索字符串
+        if search_string in job['name']:
+            # 如果包含，添加到匹配的作业列表中
+            matching_jobs.append(job)
+    # 如果只需要作业名称，可以这样获取
+    matching_job_names = [job['name'] for job in matching_jobs]
+    
+    print(matching_job_names[0])
+    server = jenkins.Jenkins(jenkins_server_url, username=username, password=password)
+
+    try:
+        server = jenkins.Jenkins(jenkins_server_url, username=username, password=password)
+        job_info = server.get_job_info(matching_job_names[0])
+        last_build_number = job_info['lastBuild']['number']
+        build_info = server.get_build_info(matching_job_names[0], last_build_number)
+        print("========================获得job building情况=========================")
+        print(build_info)
+
+        is_building = build_info['building']
+        build_result = build_info.get('result', 'IN PROGRESS' if is_building else 'UNKNOWN')
+
+        return JsonResponse({
+            'building': is_building,
+            'result': build_result,
+            'build_number': last_build_number
+        })
+    except Exception as e:
+        return JsonResponse({'error': 'Failed to fetch job status'}, status=500)
+
 
 
 

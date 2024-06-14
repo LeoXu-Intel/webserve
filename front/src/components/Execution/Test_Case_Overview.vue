@@ -401,9 +401,13 @@
                 Automation_Status: item.Aotumation_Status,
                 Commendline: item.Commendline,
                 
+                
               }));
               this.filterTable();
               this.hasSearched = true;
+              const ids = response.data.map(item => item.ID);
+              this.$store.commit('setSelection', { key: 'id', value: ids });
+              console.log(this.$store.state.selections.id);
             })
             .catch(error => {
               console.error('Error fetching tableData:', error);

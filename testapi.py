@@ -10,24 +10,20 @@ from urllib3.exceptions import InsecureRequestWarning
 warnings.simplefilter('ignore', InsecureRequestWarning)
 
 headers = { 'Content-type': 'application/json' }
-url = 'https://hsdes-api.intel.com/rest/query/execution/eql?start_at=1'
+url = f'https://hsdes-api.intel.com/rest/article/15015865030'
 
-##NEI  // 
-payload = """
-{
-"eql":"select title where server_platf.milestone.title contains 'NPX' or server_platf.milestone.title contains 'NEP' or server_platf.milestone.title contains 'NEI' and server_platf.milestone.owner_team contains 'PAIV.BKC' "
-}
-
-"""
-
-response = requests.post(url, verify=False,auth=HTTPKerberosAuth(), headers = headers, data = payload)
-
-if response.status_code == 200:
-    data_dict = response.json()
-    data_list = data_dict.get('data', [])
-    titles = [{'label': item.get('title'), 'value': item.get('title')} for item in data_list]
-
-print(titles)
+response = requests.get(url, verify=False,auth=HTTPKerberosAuth(),headers=headers)
+data_dict = response.json()
+data=data_dict['data'][0]['parent_id']
+print(data)
+url = f'https://hsdes-api.intel.com/rest/article/{data}'
+print(url)  
+response1 = requests.get(url, verify=False,auth=HTTPKerberosAuth(),headers=headers)
+print(response1)
+data_dict1 = response1.json()['data'][0][
+    'server_platf.test_case_definition.command_line'
+]
+print(data_dict1)
 
 # # 读取JSON文件
 # with open('./front/src/assets/domain_domainDetail.json', 'r') as file:
